@@ -1,0 +1,20 @@
+{
+  "welcome": {
+    "subject": "Welcome to Our Service",
+    "sender": "noreply@example.com",
+    "body": "Welcome! We're excited to have you on board.",
+    "createdAt": "2025-01-01T10:00:00Z"
+  },
+  "newsletter": {
+    "subject": "Monthly Newsletter",
+    "sender": "newsletter@example.com",
+    "body": "Here's what's new this month...",
+    "createdAt": "2025-01-15T09:00:00Z"
+  },
+  "alert": {
+    "subject": "Important Update",
+    "sender": "alerts@example.com",
+    "body": "Please review this important security update.",
+    "createdAt": "2025-01-20T14:30:00Z"
+  }
+}
