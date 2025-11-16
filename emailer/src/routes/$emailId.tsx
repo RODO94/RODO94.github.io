@@ -1,5 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import emailData from "../data/emails.json";
+import { useEmailById } from "../hooks/useEmails";
+import { generateSendMailto } from "../services/emailService";
+import { TypographyBody } from "@/components/typography/Body";
+import { Button } from "@/components/ui/button";
+import { useMemo, useState } from "react";
+import { Input } from "@/components/ui/input";
+import { hasPlaceholders, replacePlaceholders } from "@/services/placeholderService";
+import { Separator } from "@/components/ui/separator";
+import { TypographyHeader } from "@/components/typography/Header";
 
 export const Route = createFileRoute("/$emailId")({
   component: EmailerPage,
@@ -7,7 +15,22 @@ export const Route = createFileRoute("/$emailId")({
 
 function EmailerPage() {
   const { emailId } = Route.useParams();
-  const email = emailData[emailId as keyof typeof emailData];
+  const { email, error } = useEmailById(emailId);
+  const [username, setUsername] = useState('');
+
+  const mailToLink = useMemo(() => {
+    if (!email) return '';
+    return generateSendMailto(email, { username: username });
+  }, [email, username]);
+
+  if (error) {
+    return (
+      <div style={{ padding: "2rem" }}>
+        <h1>Error</h1>
+        <p style={{ color: "red" }}>{error}</p>
+      </div>
+    );
+  }
 
   if (!email) {
     return (
@@ -18,9 +41,9 @@ function EmailerPage() {
     );
   }
 
+
   return (
     <div style={{ padding: "2rem" }}>
-      <h1>Email Details</h1>
       <div
         style={{
           marginTop: "1rem",
@@ -29,21 +52,32 @@ function EmailerPage() {
           borderRadius: "4px",
         }}
       >
-        <p>
-          <strong>ID:</strong> {emailId}
-        </p>
-        <p>
+        <TypographyHeader variant="header-2">
+          The email we are sending
+        </TypographyHeader>
+        <TypographyBody variant='body-1' size='base' >
+          Below is an email we are sending together.
+        </TypographyBody>
+        <Separator className="my-4" />
+        {hasPlaceholders(email.emailBody) && <Input type="text" value={username} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} />}
+        <TypographyBody variant='body-1' size='base'>
           <strong>Subject:</strong> {email.subject}
-        </p>
-        <p>
-          <strong>Sender:</strong> {email.sender}
-        </p>
-        <p>
-          <strong>Created:</strong> {new Date(email.createdAt).toLocaleString()}
-        </p>
+        </TypographyBody>
+        <TypographyBody variant='body-1' size='base'>
+          <strong>To:</strong> {email.targetTo}
+        </TypographyBody>
         <div style={{ marginTop: "1rem" }}>
           <strong>Body:</strong>
-          <p>{email.body}</p>
+          <p style={{ whiteSpace: "pre-wrap" }}>{username ? replacePlaceholders(email.emailBody, { username: username }) : email.emailBody}</p>
+        </div>
+        <Separator className="my-4" />
+        <TypographyBody variant='body-1' size='base' style="italic">
+          When you "Open Email" you can make further changes to the email before sending it.
+        </TypographyBody>
+        <div style={{ marginTop: "1.5rem" }}>
+          <a href={mailToLink}>
+            <Button>Open Email</Button>
+          </a>
         </div>
       </div>
     </div>
