@@ -1,25 +1,17 @@
 [
     {
         "emailId": "welcome-email",
-        "subject": "Welcome to Our Service, {{username}}!",
+        "subject": "Welcome to Our Service!",
         "targetTo": "user@example.com",
         "emailBody": "Hi {{username}},\n\nWelcome! We're excited to have you on board.\n\nThank you for signing up!\n\nBest regards,\nThe Team",
         "createdOn": "2025-01-15T10:30:00Z",
         "createdBy": "admin"
     },
     {
-        "emailId": "rorys-tester-001",
-        "subject": "Welcome to {{username}}",
-        "targetTo": "rory.doak@gmail.com",
-        "emailBody": "This is a \n\nNew test",
-        "createdBy": "Roy",
-        "createdOn": "2025-11-16T13:39:13.025Z"
-    },
-    {
         "emailId": "follow-up",
         "subject": "Following Up on Your Inquiry",
         "targetTo": "client@example.com",
-        "emailBody": "Dear {{username}},\n\nThank you for your recent inquiry about {{topic}}.\n\nWe'll get back to you soon with more information.\n\nBest regards,\nSupport Team",
+        "emailBody": "Dear Person,\n\nThank you for your recent inquiry.\n\nWe'll get back to you soon with more information.\n\nBest regards,\nSupport Team",
         "createdOn": "2025-01-16T14:20:00Z",
         "createdBy": "support"
     },
@@ -30,21 +22,5 @@
         "emailBody": "We received a request to reset your password.\n\nIf you didn't make this request, please ignore this email.\n\nBest regards,\nSecurity Team",
         "createdOn": "2025-01-17T09:15:00Z",
         "createdBy": "security"
-    },
-    {
-        "emailId": "meeting-invitation",
-        "subject": "Meeting Invitation: {{meetingTopic}}",
-        "targetTo": "colleague@example.com",
-        "emailBody": "Hi {{username}},\n\nYou're invited to a meeting about {{meetingTopic}}.\n\nDate: {{meetingDate}}\nTime: {{meetingTime}}\nLocation: {{location}}\n\nPlease confirm your attendance.\n\nBest regards,\n{{organizer}}",
-        "createdOn": "2025-01-18T11:00:00Z",
-        "createdBy": "admin"
-    },
-    {
-        "emailId": "project-update",
-        "subject": "{{projectName}} - Update",
-        "targetTo": "team@example.com",
-        "emailBody": "Hi {{username}},\n\nHere's an update on the {{projectName}} project:\n\n{{updateDetails}}\n\nNext steps:\n{{nextSteps}}\n\nLet me know if you have any questions.\n\nBest regards,\n{{sender}}",
-        "createdOn": "2025-01-19T16:30:00Z",
-        "createdBy": "project-manager"
     }
 ]
