@@ -18,6 +18,12 @@ function EmailerPage() {
   const { email, error } = useEmailById(emailId);
   const [username, setUsername] = useState('');
 
+  const containsPlaceholders: boolean | undefined = useMemo(() => {
+    if (email) {
+      return hasPlaceholders(email?.emailBody)
+    }
+  }, [email])
+
   const mailToLink = useMemo(() => {
     if (!email) return '';
     return generateSendMailto(email, { username: username });
@@ -42,6 +48,8 @@ function EmailerPage() {
   }
 
 
+
+
   return (
     <div style={{ padding: "2rem" }}>
       <div
@@ -59,10 +67,16 @@ function EmailerPage() {
           {email.description}
         </TypographyBody>
         <Separator className="my-4" />
-        {hasPlaceholders(email.emailBody) && <Input type="text" value={username} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} />}
-        <TypographyBody variant='body-1' size='base'>
+        {containsPlaceholders && (<>
+          <TypographyBody variant='body-1' size='base'>
+            <strong>Enter your name:</strong>
+          </TypographyBody>
+          <Input type="text" value={username} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} />
+          <Separator className="my-4" />
+        </>)}
+        < TypographyBody variant='body-1' size='base'>
           <strong>Subject:</strong> {email.subject}
-        </TypographyBody>
+        </TypographyBody >
         <TypographyBody variant='body-1' size='base'>
           <strong>To:</strong> {email.targetTo}
         </TypographyBody>
@@ -80,6 +94,6 @@ function EmailerPage() {
           </a>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
