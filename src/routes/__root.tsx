@@ -6,7 +6,7 @@ export const Route = createRootRoute({
   component: () => (
     <>
       <MainBox>
-        <img src="../../public/logo.png" alt="Logo" className="w-24 h-24" />
+        <img src="./public/logo.png" alt="Logo" className="w-24 h-24" />
         <Outlet />
         <TanStackRouterDevtools />
       </MainBox>
