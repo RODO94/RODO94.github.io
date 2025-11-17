@@ -86,9 +86,13 @@ function EmailerPage() {
         </div>
         <Separator className="my-4" />
         <TypographyBody variant='body-1' size='base' style="italic">
-          When you "Open Email" you can make further changes to the email before sending it.
+          When you "Open Email" it will take you to your email app to send the email
         </TypographyBody>
-        <div style={{ marginTop: "1.5rem" }}>
+        <br />
+        <TypographyBody variant='body-1' size='base' style="italic">
+          From here, you can make further changes to the email before sending it.
+        </TypographyBody>
+        <div className="mt-4 flex justify-end">
           <a href={mailToLink}>
             <Button>Open Email</Button>
           </a>

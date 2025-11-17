@@ -3,7 +3,7 @@
         "emailId": "welcome-email",
         "subject": "Welcome to Our Service!",
         "targetTo": "user@example.com",
-        "emailBody": "Hi {{username}},\n\nWelcome! We're excited to have you on board.\n\nThank you for signing up!\n\nBest regards,\nThe Team",
+        "emailBody": "Hi {{username}},\n\nWelcome! We're excited to have you on board, {{username}}.\n\nThank you for signing up!\n\nBest regards,\nThe Team",
         "createdOn": "2025-01-15T10:30:00Z",
         "createdBy": "admin",
         "title": "Welcome Email",
