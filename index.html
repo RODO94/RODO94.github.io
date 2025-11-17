@@ -5,8 +5,21 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>emailer</title>
-    <script type="module" crossorigin src="https://rodo94.github.io/assets/index-B5K8MD3Q.js"></script>
-    <link rel="stylesheet" crossorigin href="https://rodo94.github.io/assets/index-37IcAUGw.css">
+    <!-- GitHub Pages SPA redirect handling -->
+    <script>
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          const decoded = l.search.slice(1).split('&').map(s => 
+            s.replace(/~and~/g, '&')
+          ).join('?');
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location));
+    </script>
+    <script type="module" crossorigin src="/assets/index-CUDLIuD4.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-37IcAUGw.css">
   </head>
   <body>
     <div id="root"></div>
