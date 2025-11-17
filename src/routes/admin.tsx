@@ -4,6 +4,7 @@ import { useEmails } from "../hooks/useEmails";
 import { EmailCard } from "../components/EmailCard";
 import { AddEmailForm } from "../components/AddEmailForm";
 import { Button } from "../components/ui/button";
+import { TypographyHeader } from "@/components/typography/Header";
 
 export const Route = createFileRoute("/admin")({
   component: AdminPage,
@@ -35,22 +36,26 @@ function AdminPage() {
 
   return (
     <div style={{ padding: "2rem" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
-        <h1>Admin Panel</h1>
-        <Button onClick={() => setShowAddForm(!showAddForm)}>
-          {showAddForm ? "Cancel" : "Add New Email"}
+      <div className="flex flex-col justify-between items-center mb-4">
+        <TypographyHeader variant="header-1" >Admin Panel</TypographyHeader>
+      </div>
+      <div className="flex justify-end items-center my-8">
+        <Button className="align-self-end" onClick={() => setShowAddForm(!showAddForm)}>
+          {showAddForm ? "Cancel" : "+ Add New Email"}
         </Button>
       </div>
 
-      {showAddForm && (
-        <div style={{ marginBottom: "2rem", padding: "1.5rem", backgroundColor: "#f9f9f9", borderRadius: "8px" }}>
-          <h2>Add New Email Template</h2>
-          <AddEmailForm />
-        </div>
-      )}
+      {
+        showAddForm && (
+          <div style={{ marginBottom: "2rem", padding: "1.5rem", backgroundColor: "#f9f9f9", borderRadius: "8px" }}>
+            <h2>Add New Email Template</h2>
+            <AddEmailForm />
+          </div>
+        )
+      }
 
       <div style={{ marginTop: "2rem" }}>
-        <h2>Email List</h2>
+        <TypographyHeader variant="header-2">Email List</TypographyHeader>
         {!emails || emails.length === 0 ? (
           <p>No emails found.</p>
         ) : (
@@ -61,6 +66,6 @@ function AdminPage() {
           </div>
         )}
       </div>
-    </div>
+    </div >
   );
 }

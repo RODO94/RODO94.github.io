@@ -100,8 +100,7 @@ export function generateSubmitMailto(email: Email): string {
 Copy the JSON below and add it to the emails.json array:
 
 ${formatEmailForSubmission(email)}
-
-Then commit and redeploy the site.`
+`
 
     // Properly encode subject and body for URL
     const encodedSubject = encodeURIComponent(subject)

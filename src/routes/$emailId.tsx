@@ -53,10 +53,10 @@ function EmailerPage() {
         }}
       >
         <TypographyHeader variant="header-2">
-          The email we are sending
+          {email.title}
         </TypographyHeader>
         <TypographyBody variant='body-1' size='base' >
-          Below is an email we are sending together.
+          {email.description}
         </TypographyBody>
         <Separator className="my-4" />
         {hasPlaceholders(email.emailBody) && <Input type="text" value={username} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} />}

@@ -22,7 +22,9 @@ export function AddEmailForm() {
       subject: '',
       targetTo: '',
       emailBody: '',
-      createdBy: ''
+      createdBy: '',
+      title: '',
+      description: ''
     },
     validate: (values) => {
       // Auto-generate createdOn timestamp
@@ -59,13 +61,13 @@ export function AddEmailForm() {
 
       // Generate mailto link
       const mailtoLink = generateSubmitMailto(emailData);
-      
+
       // Open mailto link
       window.location.href = mailtoLink;
-      
+
       // Show success message
       setShowSuccess(true);
-      
+
       // Clear form after short delay
       setTimeout(() => {
         resetForm();
@@ -192,6 +194,75 @@ export function AddEmailForm() {
             </p>
           )}
         </div>
+      </div>
+      <div>
+        <Label htmlFor="emailId">
+          Email ID <span className="text-red-500">*</span>
+        </Label>
+        <Input
+          id="emailId"
+          name="emailId"
+          type="text"
+          value={formik.values.emailId}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          placeholder="welcome-email"
+          className="mt-1"
+        />
+        <p className="text-xs text-gray-500 mt-1">
+          Used as the URL route (lowercase, numbers, hyphens only)
+        </p>
+        {formik.touched.emailId && formik.errors.emailId && (
+          <p className="text-xs text-red-600 dark:text-red-400 mt-1">
+            {formik.errors.emailId}
+          </p>
+        )}
+      </div>
+      <div>
+        <Label htmlFor="emailId">
+          Title <span className="text-red-500">*</span>
+        </Label>
+        <Input
+          id="title"
+          name="title"
+          type="text"
+          value={formik.values.title}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          placeholder="campaign title"
+          className="mt-1"
+        />
+        <p className="text-xs text-gray-500 mt-1">
+          Used on the email page as the title
+        </p>
+        {formik.touched.title && formik.errors.title && (
+          <p className="text-xs text-red-600 dark:text-red-400 mt-1">
+            {formik.errors.title}
+          </p>
+        )}
+      </div>
+      <div>
+        <Label htmlFor="emailId">
+          Description <span className="text-red-500">*</span>
+        </Label>
+        <Input
+          id="description"
+          name="description"
+          type="text"
+          value={formik.values.description}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          placeholder="campaign description"
+          className="mt-1"
+        />
+        <p className="text-xs text-gray-500 mt-1">
+          Used on the page to describe the email
+        </p>
+        {formik.touched.description && formik.errors.description && (
+          <p className="text-xs text-red-600 dark:text-red-400 mt-1">
+            {formik.errors.description}
+          </p>
+        )}
       </div>
 
       {/* Success Message */}

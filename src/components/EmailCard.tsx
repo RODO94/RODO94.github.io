@@ -21,8 +21,8 @@ export function EmailCard({ email }: EmailCardProps) {
   });
 
   // Truncate body if too long
-  const bodyPreview = email.emailBody.length > 150 
-    ? `${email.emailBody.substring(0, 150)}...` 
+  const bodyPreview = email.emailBody.length > 150
+    ? `${email.emailBody.substring(0, 150)}...`
     : email.emailBody;
 
   return (
@@ -41,7 +41,7 @@ export function EmailCard({ email }: EmailCardProps) {
         {/* Target recipient */}
         <div>
           <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-            To: 
+            To:
           </span>
           <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">
             {email.targetTo}
@@ -66,7 +66,7 @@ export function EmailCard({ email }: EmailCardProps) {
             params={{ emailId: email.emailId }}
             className="text-sm font-medium text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
           >
-            View Full Email →
+            View Email
           </Link>
         </div>
       </div>

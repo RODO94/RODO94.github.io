@@ -27,7 +27,13 @@ export const EmailSchema = z.object({
     .datetime({ message: 'Must be a valid ISO 8601 date string' }),
   createdBy: z
     .string()
-    .min(1, 'Creator name is required')
+    .min(1, 'Creator name is required'),
+  title: z
+    .string()
+    .min(1, 'Title is required'),
+  description: z
+    .string()
+    .min(1, 'Description is required'),
 });
 
 /**

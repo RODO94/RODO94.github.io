@@ -5,7 +5,9 @@
         "targetTo": "user@example.com",
         "emailBody": "Hi {{username}},\n\nWelcome! We're excited to have you on board.\n\nThank you for signing up!\n\nBest regards,\nThe Team",
         "createdOn": "2025-01-15T10:30:00Z",
-        "createdBy": "admin"
+        "createdBy": "admin",
+        "title": "Welcome Email",
+        "description": "A welcome email to new users"
     },
     {
         "emailId": "follow-up",
@@ -13,7 +15,9 @@
         "targetTo": "client@example.com",
         "emailBody": "Dear Person,\n\nThank you for your recent inquiry.\n\nWe'll get back to you soon with more information.\n\nBest regards,\nSupport Team",
         "createdOn": "2025-01-16T14:20:00Z",
-        "createdBy": "support"
+        "createdBy": "support",
+        "title": "Follow-up Email",
+        "description": "A welcome email to new users"
     },
     {
         "emailId": "password-reset",
@@ -21,6 +25,8 @@
         "targetTo": "user@example.com",
         "emailBody": "We received a request to reset your password.\n\nIf you didn't make this request, please ignore this email.\n\nBest regards,\nSecurity Team",
         "createdOn": "2025-01-17T09:15:00Z",
-        "createdBy": "security"
+        "createdBy": "security",
+        "title": "Welcome Email",
+        "description": "A welcome email to new users"
     }
 ]
