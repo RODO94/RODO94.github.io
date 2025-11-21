@@ -10,14 +10,14 @@
         "description": "A welcome email to new users"
     },
     {
-        "emailId": "follow-up",
-        "subject": "Following Up on Your Inquiry",
-        "targetTo": "client@example.com",
-        "emailBody": "Dear Person,\n\nThank you for your recent inquiry.\n\nWe'll get back to you soon with more information.\n\nBest regards,\nSupport Team",
+        "emailId": "get-rory",
+        "subject": "Stop doing this, Rory",
+        "targetTo": "rory.doak@gmail.com",
+        "emailBody": "Dear Rory, \n\n stop doing this kind of thing \n\n {username}",
         "createdOn": "2025-01-16T14:20:00Z",
         "createdBy": "support",
-        "title": "Follow-up Email",
-        "description": "A welcome email to new users"
+        "title": "Cry for help",
+        "description": "Rory is a menace"
     },
     {
         "emailId": "password-reset",

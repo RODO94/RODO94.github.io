@@ -195,29 +195,6 @@ export function AddEmailForm() {
 
           <div>
             <Label htmlFor="emailId">
-              Email ID <span className="text-red-500">*</span>
-            </Label>
-            <Input
-              id="emailId"
-              name="emailId"
-              type="text"
-              value={formik.values.emailId}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              placeholder="welcome-email"
-              className="mt-1"
-            />
-            <p className="text-xs text-gray-500 mt-1">
-              Used as the URL route (lowercase, numbers, hyphens only)
-            </p>
-            {formik.touched.emailId && formik.errors.emailId && (
-              <p className="text-xs text-red-600 dark:text-red-400 mt-1">
-                {formik.errors.emailId}
-              </p>
-            )}
-          </div>
-          <div>
-            <Label htmlFor="emailId">
               Title <span className="text-red-500">*</span>
             </Label>
             <Input
