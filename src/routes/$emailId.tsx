@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEmailById } from "../hooks/useEmails";
+import { fetchEmailById } from "../hooks/useEmails";
 import { generateSendMailto } from "../services/emailService";
 import { TypographyBody } from "@/components/typography/Body";
 import { Button } from "@/components/ui/button";
@@ -10,14 +10,22 @@ import { Separator } from "@/components/ui/separator";
 import { TypographyHeader } from "@/components/typography/Header";
 import { Card, CardAction, CardContent, CardHeader } from "@/components/ui/card";
 import { toast } from "sonner"
+import type { Email } from "@/schemas/email/email.schema";
 
 export const Route = createFileRoute("/$emailId")({
   component: EmailerPage,
+  loader: async ({ params }) => {
+    const { emailId } = params;
+    const email = await fetchEmailById(emailId);
+    if (email === null) {
+      toast.error('Error fetching email')
+    }
+    return email
+  },
 });
 
 function EmailerPage() {
-  const { emailId } = Route.useParams();
-  const { email, error } = useEmailById(emailId);
+  const email = Route.useLoaderData() as Email;
   const [username, setUsername] = useState('');
 
   const containsPlaceholders: boolean | undefined = useMemo(() => {
@@ -30,27 +38,6 @@ function EmailerPage() {
     if (!email) return '';
     return generateSendMailto(email, { username: username });
   }, [email, username]);
-
-  if (error) {
-    return (
-      <div style={{ padding: "2rem" }}>
-        <h1>Error</h1>
-        <p style={{ color: "red" }}>{error}</p>
-      </div>
-    );
-  }
-
-  if (!email) {
-    return (
-      <div style={{ padding: "2rem" }}>
-        <h1>Email Not Found</h1>
-        <p>The email with ID "{emailId}" does not exist.</p>
-      </div>
-    );
-  }
-
-
-
 
   return (
     <div className="p-6">
