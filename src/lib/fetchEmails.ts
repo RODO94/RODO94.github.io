@@ -46,13 +46,6 @@ export async function fetchEmailById(emailId: string) {
           onClick: () => window.location.reload(),
         },
       })
-    } else {
-      toast.error(`Email with ID "${emailId}" not found, try to refresh`, {
-        action: {
-          label: 'Refresh',
-          onClick: () => window.location.reload(),
-        },
-      })
     }
     return validatedEmail
   } catch (err) {
