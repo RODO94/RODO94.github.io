@@ -25,7 +25,7 @@ export const TypographyBody = ({ variant, children, size, style = "" }: BodyProp
 
 function TypographyBody1({ children, size, style }: ChildTypographyProps) {
   return (
-    <p className={`text-${size} leading-7 text-primary ${style} m-0`}>
+    <p className={`text-${size} leading-7 dark:text-background ${style} m-0`}>
       {children}
     </p>
   );
@@ -33,7 +33,7 @@ function TypographyBody1({ children, size, style }: ChildTypographyProps) {
 
 function TypographyBody2({ children, size }: ChildTypographyProps) {
   return (
-    <p className={`text-${size} leading-relaxed text-primary-foreground`}>
+    <p className={`text-${size} leading-relaxed dark:text-primary-foreground`}>
       {children}
     </p>
   );
@@ -41,6 +41,6 @@ function TypographyBody2({ children, size }: ChildTypographyProps) {
 
 function TypographyBody3({ children, size }: ChildTypographyProps) {
   return (
-    <p className={`text-${size} leading-relaxed text-secondary`}>{children}</p>
+    <p className={`text-${size} leading-relaxed dark:text-secondary`}>{children}</p>
   );
 }

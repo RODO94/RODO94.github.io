@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useFormik } from 'formik';
 import { z } from 'zod';
 import { EmailSchema, type Email } from '../schemas/email/email.schema';
@@ -7,6 +6,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Label } from './ui/label';
+import { Card, CardAction, CardContent, CardHeader, CardTitle } from './ui/card';
 
 /**
  * Form for adding a new email template.
@@ -14,7 +14,6 @@ import { Label } from './ui/label';
  * On submit, opens email client with JSON formatted for copy/paste.
  */
 export function AddEmailForm() {
-  const [showSuccess, setShowSuccess] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -51,7 +50,6 @@ export function AddEmailForm() {
       }
     },
     onSubmit: (values, { resetForm }) => {
-      setShowSuccess(false);
 
       // Auto-generate createdOn timestamp
       const emailData = {
@@ -65,224 +63,216 @@ export function AddEmailForm() {
       // Open mailto link
       window.location.href = mailtoLink;
 
-      // Show success message
-      setShowSuccess(true);
-
       // Clear form after short delay
       setTimeout(() => {
         resetForm();
-        setShowSuccess(false);
       }, 3000);
     },
   });
 
   return (
     <form onSubmit={formik.handleSubmit} className="space-y-6 max-w-2xl">
-      <div className="space-y-4">
-        {/* Email ID */}
-        <div>
-          <Label htmlFor="emailId">
-            Email ID <span className="text-red-500">*</span>
-          </Label>
-          <Input
-            id="emailId"
-            name="emailId"
-            type="text"
-            value={formik.values.emailId}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            placeholder="welcome-email"
-            className="mt-1"
-          />
-          <p className="text-xs text-gray-500 mt-1">
-            Used as the URL route (lowercase, numbers, hyphens only)
-          </p>
-          {formik.touched.emailId && formik.errors.emailId && (
-            <p className="text-xs text-red-600 dark:text-red-400 mt-1">
-              {formik.errors.emailId}
+      <Card className='m-2'>
+        <CardHeader>
+          <CardTitle>Add New Template</CardTitle>
+        </CardHeader>
+        <CardContent className='flex flex-col gap-4'>
+          {/* Email ID */}
+          <div>
+            <Label htmlFor="emailId">
+              Template ID <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="emailId"
+              name="emailId"
+              type="text"
+              value={formik.values.emailId}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder="welcome-email"
+              className="mt-1"
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Used as the URL route (lowercase, numbers, hyphens only)
             </p>
-          )}
-        </div>
+            {formik.touched.emailId && formik.errors.emailId && (
+              <p className="text-xs text-red-600 dark:text-red-400 mt-1">
+                {formik.errors.emailId}
+              </p>
+            )}
+          </div>
 
-        {/* Subject */}
-        <div>
-          <Label htmlFor="subject">
-            Subject <span className="text-red-500">*</span>
-          </Label>
-          <Input
-            id="subject"
-            name="subject"
-            type="text"
-            value={formik.values.subject}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            placeholder="Welcome to Our Service"
-            className="mt-1"
-          />
-          {formik.touched.subject && formik.errors.subject && (
-            <p className="text-xs text-red-600 dark:text-red-400 mt-1">
-              {formik.errors.subject}
+          {/* Subject */}
+          <div>
+            <Label htmlFor="subject">
+              Subject <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="subject"
+              name="subject"
+              type="text"
+              value={formik.values.subject}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder="Welcome to Our Service"
+              className="mt-1"
+            />
+            {formik.touched.subject && formik.errors.subject && (
+              <p className="text-xs text-red-600 dark:text-red-400 mt-1">
+                {formik.errors.subject}
+              </p>
+            )}
+          </div>
+
+          {/* Target Email */}
+          <div>
+            <Label htmlFor="targetTo">
+              Target Email Address <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="targetTo"
+              name="targetTo"
+              type="email"
+              value={formik.values.targetTo}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder="user@example.com"
+              className="mt-1"
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              The recipient who will receive this email template
             </p>
-          )}
-        </div>
+            {formik.touched.targetTo && formik.errors.targetTo && (
+              <p className="text-xs text-red-600 dark:text-red-400 mt-1">
+                {formik.errors.targetTo}
+              </p>
+            )}
+          </div>
 
-        {/* Target Email */}
-        <div>
-          <Label htmlFor="targetTo">
-            Target Email Address <span className="text-red-500">*</span>
-          </Label>
-          <Input
-            id="targetTo"
-            name="targetTo"
-            type="email"
-            value={formik.values.targetTo}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            placeholder="user@example.com"
-            className="mt-1"
-          />
-          <p className="text-xs text-gray-500 mt-1">
-            The recipient who will receive this email template
-          </p>
-          {formik.touched.targetTo && formik.errors.targetTo && (
-            <p className="text-xs text-red-600 dark:text-red-400 mt-1">
-              {formik.errors.targetTo}
+          {/* Email Body */}
+          <div>
+            <Label htmlFor="emailBody">
+              Email Body <span className="text-red-500">*</span>
+            </Label>
+            <Textarea
+              id="emailBody"
+              name="emailBody"
+              value={formik.values.emailBody}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder="Enter the email content here..."
+              rows={8}
+              className="mt-1"
+            />
+            {formik.touched.emailBody && formik.errors.emailBody && (
+              <p className="text-xs text-red-600 dark:text-red-400 mt-1">
+                {formik.errors.emailBody}
+              </p>
+            )}
+          </div>
+
+          {/* Created By */}
+          <div>
+            <Label htmlFor="createdBy">
+              Created By <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="createdBy"
+              name="createdBy"
+              type="text"
+              value={formik.values.createdBy}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder="Your name"
+              className="mt-1"
+            />
+            {formik.touched.createdBy && formik.errors.createdBy && (
+              <p className="text-xs text-red-600 dark:text-red-400 mt-1">
+                {formik.errors.createdBy}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <Label htmlFor="emailId">
+              Email ID <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="emailId"
+              name="emailId"
+              type="text"
+              value={formik.values.emailId}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder="welcome-email"
+              className="mt-1"
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Used as the URL route (lowercase, numbers, hyphens only)
             </p>
-          )}
-        </div>
-
-        {/* Email Body */}
-        <div>
-          <Label htmlFor="emailBody">
-            Email Body <span className="text-red-500">*</span>
-          </Label>
-          <Textarea
-            id="emailBody"
-            name="emailBody"
-            value={formik.values.emailBody}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            placeholder="Enter the email content here..."
-            rows={8}
-            className="mt-1"
-          />
-          {formik.touched.emailBody && formik.errors.emailBody && (
-            <p className="text-xs text-red-600 dark:text-red-400 mt-1">
-              {formik.errors.emailBody}
+            {formik.touched.emailId && formik.errors.emailId && (
+              <p className="text-xs text-red-600 dark:text-red-400 mt-1">
+                {formik.errors.emailId}
+              </p>
+            )}
+          </div>
+          <div>
+            <Label htmlFor="emailId">
+              Title <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="title"
+              name="title"
+              type="text"
+              value={formik.values.title}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder="campaign title"
+              className="mt-1"
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Used on the email page as the title
             </p>
-          )}
-        </div>
-
-        {/* Created By */}
-        <div>
-          <Label htmlFor="createdBy">
-            Created By <span className="text-red-500">*</span>
-          </Label>
-          <Input
-            id="createdBy"
-            name="createdBy"
-            type="text"
-            value={formik.values.createdBy}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            placeholder="Your name"
-            className="mt-1"
-          />
-          {formik.touched.createdBy && formik.errors.createdBy && (
-            <p className="text-xs text-red-600 dark:text-red-400 mt-1">
-              {formik.errors.createdBy}
+            {formik.touched.title && formik.errors.title && (
+              <p className="text-xs text-red-600 dark:text-red-400 mt-1">
+                {formik.errors.title}
+              </p>
+            )}
+          </div>
+          <div>
+            <Label htmlFor="emailId">
+              Description <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="description"
+              name="description"
+              type="text"
+              value={formik.values.description}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder="campaign description"
+              className="mt-1"
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Used on the page to describe the email
             </p>
-          )}
-        </div>
-      </div>
-      <div>
-        <Label htmlFor="emailId">
-          Email ID <span className="text-red-500">*</span>
-        </Label>
-        <Input
-          id="emailId"
-          name="emailId"
-          type="text"
-          value={formik.values.emailId}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          placeholder="welcome-email"
-          className="mt-1"
-        />
-        <p className="text-xs text-gray-500 mt-1">
-          Used as the URL route (lowercase, numbers, hyphens only)
-        </p>
-        {formik.touched.emailId && formik.errors.emailId && (
-          <p className="text-xs text-red-600 dark:text-red-400 mt-1">
-            {formik.errors.emailId}
+            {formik.touched.description && formik.errors.description && (
+              <p className="text-xs text-red-600 dark:text-red-400 mt-1">
+                {formik.errors.description}
+              </p>
+            )}
+          </div>
+        </CardContent>
+        <CardAction className='flex flex-col gap-4 p-4'>
+          {/* Submit Button */}
+          <Button type="submit" variant={"primary"}>
+            Submit New Template
+          </Button>
+          <p className="text-xs text-gray-500 mt-2 text-center">
+            This will open your email client with a pre-filled message to submit the template
           </p>
-        )}
-      </div>
-      <div>
-        <Label htmlFor="emailId">
-          Title <span className="text-red-500">*</span>
-        </Label>
-        <Input
-          id="title"
-          name="title"
-          type="text"
-          value={formik.values.title}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          placeholder="campaign title"
-          className="mt-1"
-        />
-        <p className="text-xs text-gray-500 mt-1">
-          Used on the email page as the title
-        </p>
-        {formik.touched.title && formik.errors.title && (
-          <p className="text-xs text-red-600 dark:text-red-400 mt-1">
-            {formik.errors.title}
-          </p>
-        )}
-      </div>
-      <div>
-        <Label htmlFor="emailId">
-          Description <span className="text-red-500">*</span>
-        </Label>
-        <Input
-          id="description"
-          name="description"
-          type="text"
-          value={formik.values.description}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          placeholder="campaign description"
-          className="mt-1"
-        />
-        <p className="text-xs text-gray-500 mt-1">
-          Used on the page to describe the email
-        </p>
-        {formik.touched.description && formik.errors.description && (
-          <p className="text-xs text-red-600 dark:text-red-400 mt-1">
-            {formik.errors.description}
-          </p>
-        )}
-      </div>
-
-      {/* Success Message */}
-      {showSuccess && (
-        <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-md p-4">
-          <p className="text-sm text-green-800 dark:text-green-200">
-            ✓ Email client opened! Send the email, then copy the JSON and add it to emails.json.
-          </p>
-        </div>
-      )}
-
-      {/* Submit Button */}
-      <div>
-        <Button type="submit" className="w-full">
-          Submit New Email Template
-        </Button>
-        <p className="text-xs text-gray-500 mt-2 text-center">
-          This will open your email client with a pre-filled message to submit the template
-        </p>
-      </div>
+        </CardAction>
+      </Card>
     </form>
   );
 }

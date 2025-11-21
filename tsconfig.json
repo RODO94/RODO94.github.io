@@ -3,7 +3,7 @@
     "target": "esnext",
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "module": "ESNext",
-    "types": ["node"],
+    "types": ["node", "vite/client"],
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "jsx": "react-jsx",

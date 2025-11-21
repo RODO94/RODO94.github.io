@@ -16,7 +16,7 @@ function RouteComponent() {
         <TypographyBody variant="body-3" size="base">Travel to the admin page to see all the emails that have been sent.</TypographyBody>
         <br />
         <CardAction>
-          <Button className="bg-background text-foreground">
+          <Button variant={"primary"}>
             <Link to="/admin">Go to admin page</Link>
           </Button>
         </CardAction>
