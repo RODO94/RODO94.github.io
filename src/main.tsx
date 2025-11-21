@@ -6,6 +6,7 @@ import "./index.css";
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
 import { MaxWidthBox } from "./components/layout/MaxWidthBox";
+import { Toaster } from "./components/ui/sonner";
 
 // Create a new router instance
 const router = createRouter({ routeTree });
@@ -20,6 +21,7 @@ declare module "@tanstack/react-router" {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <MaxWidthBox>
+      <Toaster position="top-center" />
       <RouterProvider router={router} />
     </MaxWidthBox>
   </StrictMode>

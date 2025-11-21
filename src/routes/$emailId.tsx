@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { hasPlaceholders, replacePlaceholders } from "@/services/placeholderService";
 import { Separator } from "@/components/ui/separator";
 import { TypographyHeader } from "@/components/typography/Header";
+import { Card, CardAction, CardContent, CardHeader } from "@/components/ui/card";
+import { toast } from "sonner"
 
 export const Route = createFileRoute("/$emailId")({
   component: EmailerPage,
@@ -51,53 +53,58 @@ function EmailerPage() {
 
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <div
-        style={{
-          marginTop: "1rem",
-          padding: "1rem",
-          border: "1px solid #ddd",
-          borderRadius: "4px",
-        }}
-      >
-        <TypographyHeader variant="header-2">
-          {email.title}
-        </TypographyHeader>
-        <TypographyBody variant='body-1' size='base' >
-          {email.description}
-        </TypographyBody>
-        <Separator className="my-4" />
-        {containsPlaceholders && (<>
-          <TypographyBody variant='body-1' size='base'>
-            <strong>Enter your name:</strong>
+    <div className="p-6">
+      <Card>
+        <CardHeader>
+          <TypographyHeader variant="header-2">
+            {email.title}
+          </TypographyHeader>
+          <TypographyBody variant='body-1' size='base' >
+            {email.description}
           </TypographyBody>
-          <Input type="text" value={username} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} />
+        </CardHeader>
+        <CardContent>
           <Separator className="my-4" />
-        </>)}
-        < TypographyBody variant='body-1' size='base'>
-          <strong>Subject:</strong> {email.subject}
-        </TypographyBody >
-        <TypographyBody variant='body-1' size='base'>
-          <strong>To:</strong> {email.targetTo}
-        </TypographyBody>
-        <div style={{ marginTop: "1rem" }}>
+          {containsPlaceholders && (<>
+            <div>
+              <TypographyBody variant='body-1' size='base'>
+                <strong>Enter your name:</strong>
+              </TypographyBody>
+              <Input type="text" value={username} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} />
+            </div>
+            <Separator className="my-4" />
+          </>)}
+          < TypographyBody variant='body-1' size='base'>
+            <strong>Subject:</strong> {email.subject}
+          </TypographyBody >
+          <TypographyBody variant='body-1' size='base'>
+            <strong>To:</strong> {email.targetTo}
+          </TypographyBody>
           <strong>Body:</strong>
-          <p style={{ whiteSpace: "pre-wrap" }}>{username ? replacePlaceholders(email.emailBody, { username: username }) : email.emailBody}</p>
-        </div>
-        <Separator className="my-4" />
-        <TypographyBody variant='body-1' size='base' style="italic">
-          When you "Open Email" it will take you to your email app to send the email
-        </TypographyBody>
-        <br />
-        <TypographyBody variant='body-1' size='base' style="italic">
-          From here, you can make further changes to the email before sending it.
-        </TypographyBody>
-        <div className="mt-4 flex justify-end">
+          <TypographyBody variant="body-1" size="base">
+            {username ? replacePlaceholders(email.emailBody, { username: username }) : email.emailBody}
+          </TypographyBody>
+          <Separator className="my-4" />
+          <div>
+            <TypographyBody variant='body-1' size='base' style="italic">
+              When you "Open Email" it will take you to your email app to send the email
+            </TypographyBody>
+            <br />
+            <TypographyBody variant='body-1' size='base' style="italic">
+              From here, you can make further changes to the email before sending it.
+            </TypographyBody>
+          </div>
+        </CardContent>
+        <CardAction className="flex justify-end gap-1.5">
+          <Button variant="secondary" onClick={() => {
+            navigator.clipboard.writeText(username ? replacePlaceholders(email.emailBody, { username: username }) : email.emailBody);
+            toast.success("Email copied to clipboard")
+          }}>Copy Email</Button>
           <a href={mailToLink}>
-            <Button>Open Email</Button>
+            <Button variant="primary">Open Email</Button>
           </a>
-        </div>
-      </div>
-    </div >
+        </CardAction>
+      </Card>
+    </div>
   );
 }

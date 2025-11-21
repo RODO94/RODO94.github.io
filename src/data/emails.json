@@ -1,32 +1,12 @@
 [
-    {
-        "emailId": "welcome-email",
-        "subject": "Welcome to Our Service!",
-        "targetTo": "user@example.com",
-        "emailBody": "Hi {{username}},\n\nWelcome! We're excited to have you on board, {{username}}.\n\nThank you for signing up!\n\nBest regards,\nThe Team",
-        "createdOn": "2025-01-15T10:30:00Z",
-        "createdBy": "admin",
-        "title": "Welcome Email",
-        "description": "A welcome email to new users"
-    },
-    {
-        "emailId": "get-rory",
-        "subject": "Stop doing this, Rory",
-        "targetTo": "rory.doak@gmail.com",
-        "emailBody": "Dear Rory, \n\n stop doing this kind of thing \n\n {username}",
-        "createdOn": "2025-01-16T14:20:00Z",
-        "createdBy": "support",
-        "title": "Cry for help",
-        "description": "Rory is a menace"
-    },
-    {
-        "emailId": "password-reset",
-        "subject": "Password Reset Request",
-        "targetTo": "user@example.com",
-        "emailBody": "We received a request to reset your password.\n\nIf you didn't make this request, please ignore this email.\n\nBest regards,\nSecurity Team",
-        "createdOn": "2025-01-17T09:15:00Z",
-        "createdBy": "security",
-        "title": "Welcome Email",
-        "description": "A welcome email to new users"
-    }
+  {
+    "emailId": "get-rory",
+    "subject": "Stop doing this, Rory",
+    "targetTo": "rory.doak@gmail.com",
+    "emailBody": "Dear Rory, \n\n stop doing this kind of thing \n\n {{username}}",
+    "createdOn": "2025-01-16T14:20:00Z",
+    "createdBy": "support",
+    "title": "Cry for help",
+    "description": "Rory is a menace"
+  }
 ]
