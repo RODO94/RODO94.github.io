@@ -27,7 +27,7 @@ function AdminPage() {
         </div>
         <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         <CardAction>
-          <Button variant={"primary"} onClick={() => { if (password === import.meta.env.VITE_PASSWORD) setIsAuthenticated(true) }}>Submit</Button>
+          <Button variant={"primary"} onClick={() => { if (password === import.meta.env.PASSWORD) setIsAuthenticated(true) }}>Submit</Button>
         </CardAction>
       </CardContent>
     </Card>)
