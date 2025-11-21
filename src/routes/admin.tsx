@@ -18,6 +18,7 @@ function AdminPage() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
+
   if (!isAuthenticated) {
     return (<Card>
       <CardContent className="flex flex-col gap-4 space-y-4" >
@@ -25,9 +26,9 @@ function AdminPage() {
           <TypographyHeader variant="header-2" >Enter the password</TypographyHeader>
           <TypographyBody variant="body-1" size="base">We have added a password for the admin page. Ask an MS member for help if you don't know it.</TypographyBody>
         </div>
-        <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <Input type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
         <CardAction>
-          <Button variant={"primary"} onClick={() => { if (password === import.meta.env.PASSWORD) setIsAuthenticated(true) }}>Submit</Button>
+          <Button variant={"primary"} onClick={() => { if (password === import.meta.env.VITE_LANDLORDS) setIsAuthenticated(true) }}>Submit</Button>
         </CardAction>
       </CardContent>
     </Card>)
