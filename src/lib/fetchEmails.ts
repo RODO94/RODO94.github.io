@@ -1,7 +1,30 @@
 import { z } from 'zod'
-import { getEmailById, parseZodErrors } from '../services/emailService'
-import { EmailSchema } from '../schemas/email/email.schema'
+import {
+  getEmailById,
+  loadEmails,
+  parseZodErrors,
+} from '../services/emailService'
+import { EmailSchema, EmailsArraySchema } from '../schemas/email/email.schema'
 import { toast } from 'sonner'
+
+export async function fetchEmails() {
+  try {
+    const emails = loadEmails()
+    const validatedEmails = EmailsArraySchema.parse(emails)
+    return validatedEmails
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      const errorMessages = parseZodErrors(err)
+      toast.error(`Validation errors: ${errorMessages.join(', ')}`)
+      return null
+    } else if (err instanceof Error) {
+      return null
+    } else {
+      toast.error('An unknown error occurred while loading emails')
+      return null
+    }
+  }
+}
 
 /**
  * Custom hook to load a single email by ID.

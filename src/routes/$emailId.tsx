@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { fetchEmailById } from "../hooks/useEmails";
+import { fetchEmailById } from "../lib/fetchEmails";
 import { generateSendMailto } from "../services/emailService";
 import { TypographyBody } from "@/components/typography/Body";
 import { Button } from "@/components/ui/button";

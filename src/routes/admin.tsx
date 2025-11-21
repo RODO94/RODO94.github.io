@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { useEmails } from "../hooks/useEmails";
+import { fetchEmails } from "../lib/fetchEmails";
 import { EmailCard } from "../components/EmailCard";
 import { AddEmailForm } from "../components/AddEmailForm";
 import { Button } from "../components/ui/button";
@@ -8,13 +8,23 @@ import { TypographyHeader } from "@/components/typography/Header";
 import { Card, CardAction, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { TypographyBody } from "@/components/typography/Body";
+import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
+import type { EmailsArray } from "@/schemas/email/email.schema";
 
 export const Route = createFileRoute("/admin")({
   component: AdminPage,
+  loader: async () => {
+    const emails = await fetchEmails();
+    if (emails === null) {
+      toast.error('Error fetching emails')
+    }
+    return emails
+  }
 });
 
 function AdminPage() {
-  const { emails, loading, error, refetch } = useEmails();
+  const emails = Route.useLoaderData() as EmailsArray | null
   const [showAddForm, setShowAddForm] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
@@ -34,25 +44,15 @@ function AdminPage() {
     </Card>)
   }
 
-  if (loading) {
+  if (emails === null) {
+    toast.error('Error fetching emails')
     return (
       <div style={{ padding: "2rem" }}>
-        <p>Loading templates...</p>
+        <Loader2 className="size-4 animate-spin" />
       </div>
     );
   }
 
-  if (error) {
-    return (
-      <div style={{ padding: "2rem" }}>
-        <h1>Error</h1>
-        <p style={{ color: "red" }}>{error}</p>
-        <Button onClick={refetch} style={{ marginTop: "1rem" }}>
-          Retry
-        </Button>
-      </div>
-    );
-  }
 
   return (
     <div style={{ padding: "2rem" }}>
