@@ -42,6 +42,6 @@ function TypographyBody2({ children, size, className }: ChildTypographyProps) {
 
 function TypographyBody3({ children, size, className }: ChildTypographyProps) {
   return (
-    <p className={`text-${size} leading-relaxed dark:text-secondary ${className}`}>{children}</p>
+    <p className={`text-${size} text-secondary-foreground dark:text-secondary ${className}`}>{children}</p>
   );
 }

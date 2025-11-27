@@ -54,8 +54,11 @@ function EmailerPage() {
           <Separator className="my-4" />
           {containsPlaceholders && (<>
             <div>
-              <TypographyBody variant='body-1' size='base'>
-                <strong>Enter your name:</strong>
+              <TypographyBody variant='body-1' size='base' className="font-bold">
+                Your name
+              </TypographyBody>
+              <TypographyBody variant='body-3' size='sm' className="text-xs mb-3">
+                This will be automatically added to the email
               </TypographyBody>
               <Input type="text" value={username} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} />
             </div>
@@ -72,24 +75,26 @@ function EmailerPage() {
             {username ? replacePlaceholders(email.emailBody, { username: username }) : email.emailBody}
           </TypographyBody>
           <Separator className="my-4" />
-          <div>
-            <TypographyBody variant='body-1' size='base' style="italic">
-              When you "Open Email" it will take you to your email app to send the email
-            </TypographyBody>
-            <br />
-            <TypographyBody variant='body-1' size='base' style="italic">
-              From here, you can make further changes to the email before sending it.
+
+        </CardContent>
+        <CardAction className="flex w-full flex-col gap-8">
+          <div className="flex flex-col gap-1.5">
+            <a href={mailToLink}>
+              <Button variant="secondary" className="w-full">Open in email app</Button>
+            </a>
+            <TypographyBody variant='body-3' size='sm' className="w-full text-xs">
+              This opens your email app to send the email
             </TypographyBody>
           </div>
-        </CardContent>
-        <CardAction className="flex justify-end gap-1.5">
-          <Button variant="secondary" onClick={() => {
-            navigator.clipboard.writeText(username ? replacePlaceholders(email.emailBody, { username: username }) : email.emailBody);
-            toast.success("Email copied to clipboard")
-          }}>Copy Email</Button>
-          <a href={mailToLink}>
-            <Button variant="primary">Open Email</Button>
-          </a>
+          <div className="flex flex-col gap-1.5">
+            <Button variant="secondary" className="w-full" onClick={() => {
+              navigator.clipboard.writeText(username ? replacePlaceholders(email.emailBody, { username: username }) : email.emailBody);
+              toast.success("Email copied to clipboard")
+            }}>Copy email</Button>
+            <TypographyBody variant='body-3' size='sm' className="w-full text-xs">
+              This copies the email to your clipboard
+            </TypographyBody>
+          </div>
         </CardAction>
       </Card>
     </div>
