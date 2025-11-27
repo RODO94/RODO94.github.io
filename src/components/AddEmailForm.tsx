@@ -220,10 +220,10 @@ export function AddEmailForm() {
             <Label htmlFor="emailId">
               Description <span className="text-red-500">*</span>
             </Label>
-            <Input
+            <Textarea
               id="description"
               name="description"
-              type="text"
+              rows={4}
               value={formik.values.description}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
