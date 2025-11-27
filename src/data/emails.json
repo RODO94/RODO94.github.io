@@ -8,5 +8,15 @@
     "createdBy": "support",
     "title": "Cry for help",
     "description": "Rory is a menace"
+  },
+  {
+    "emailId": "test1",
+    "subject": "Test subject",
+    "targetTo": "sallasirja@gmail.com",
+    "emailBody": "Test body",
+    "createdBy": "Salla",
+    "title": "Test email title",
+    "description": "This is just to test the email tool",
+    "createdOn": "2025-11-27T17:18:39.555Z"
   }
 ]
