@@ -12,7 +12,7 @@ export const Route = createRootRoute({
         <div className="text-center">
           <TypographyBody variant="body-1" size="sm" style="italic" className="text-[12px]">
             Created by London Renters Union<br />
-            <a className="text-primary underline" href="https://www.londonrentersunion.org">click here to learn more</a>
+            <a className="text-primary underline" href="https://www.londonrentersunion.org">click here to learn more about London Renters Union</a>
           </TypographyBody>
         </div>
       </MainBox>

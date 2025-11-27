@@ -82,7 +82,7 @@ function EmailerPage() {
             <a href={mailToLink}>
               <Button variant="secondary" className="w-full">Open in email app</Button>
             </a>
-            <TypographyBody variant='body-3' size='sm' className="w-full text-xs">
+            <TypographyBody variant='body-3' size='sm' className="w-full">
               This opens your email app to send the email
             </TypographyBody>
           </div>
@@ -91,7 +91,7 @@ function EmailerPage() {
               navigator.clipboard.writeText(username ? replacePlaceholders(email.emailBody, { username: username }) : email.emailBody);
               toast.success("Email copied to clipboard")
             }}>Copy email</Button>
-            <TypographyBody variant='body-3' size='sm' className="w-full text-xs">
+            <TypographyBody variant='body-3' size='sm' className="w-full">
               This copies the email to your clipboard
             </TypographyBody>
           </div>
