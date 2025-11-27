@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchEmails } from "../lib/fetchEmails";
 import { EmailCard } from "../components/EmailCard";
 import { AddEmailForm } from "../components/AddEmailForm";
@@ -29,6 +29,13 @@ function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
 
+  useEffect(() => {
+    const isAuthenticated = window.sessionStorage.getItem('isAuthenticated')
+    if (isAuthenticated) {
+      setIsAuthenticated(true)
+    }
+  }, [])
+
   if (!isAuthenticated) {
     return (<Card>
       <CardContent className="flex flex-col gap-4 space-y-4" >
@@ -36,7 +43,10 @@ function AdminPage() {
           <TypographyHeader variant="header-2" >Enter the password</TypographyHeader>
           <TypographyBody variant="body-1" size="base">We have added a password for the admin page. Ask an MS member for help if you don't know it.</TypographyBody>
         </div>
-        <Input type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <Input type="text" value={password} onChange={(e) => {
+          window.sessionStorage.setItem('isAuthenticated', 'true')
+          setPassword(e.target.value)
+        }} />
         <CardAction>
           <Button variant={"primary"} onClick={() => { if (password === import.meta.env.VITE_LANDLORDS) setIsAuthenticated(true) }}>Submit</Button>
         </CardAction>
