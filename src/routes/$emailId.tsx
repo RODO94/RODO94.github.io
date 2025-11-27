@@ -57,7 +57,7 @@ function EmailerPage() {
               <TypographyBody variant='body-1' size='base' className="font-bold">
                 Your name
               </TypographyBody>
-              <TypographyBody variant='body-3' size='sm' className="text-xs mb-3">
+              <TypographyBody variant='body-3' size='sm' className="mb-3">
                 This will be automatically added to the email
               </TypographyBody>
               <Input type="text" value={username} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} />
