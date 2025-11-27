@@ -68,7 +68,7 @@ function EmailerPage() {
             <strong>To:</strong> {email.targetTo}
           </TypographyBody>
           <strong>Body:</strong>
-          <TypographyBody variant="body-1" size="base">
+          <TypographyBody variant="body-1" size="base" className="whitespace-pre-wrap">
             {username ? replacePlaceholders(email.emailBody, { username: username }) : email.emailBody}
           </TypographyBody>
           <Separator className="my-4" />
