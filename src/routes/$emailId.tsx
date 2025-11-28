@@ -46,7 +46,7 @@ function EmailerPage() {
           <TypographyHeader variant="header-2">
             {email.title}
           </TypographyHeader>
-          <TypographyBody variant='body-1' size='base' >
+          <TypographyBody variant='body-1' size='base' className="whitespace-pre-wrap">
             {email.description}
           </TypographyBody>
         </CardHeader>
@@ -83,16 +83,16 @@ function EmailerPage() {
               <Button variant="secondary" className="w-full">Open in email app</Button>
             </a>
             <TypographyBody variant='body-3' size='sm' className="w-full">
-              This opens your email app to send the email
+              This opens the template in your email app. You still need to send the email in the app.
             </TypographyBody>
           </div>
           <div className="flex flex-col gap-1.5">
             <Button variant="secondary" className="w-full" onClick={() => {
               navigator.clipboard.writeText(username ? replacePlaceholders(email.emailBody, { username: username }) : email.emailBody);
               toast.success("Email copied to clipboard")
-            }}>Copy email</Button>
+            }}>Copy template</Button>
             <TypographyBody variant='body-3' size='sm' className="w-full">
-              This copies the email to your clipboard
+              This copies the template to your clipboard.
             </TypographyBody>
           </div>
         </CardAction>
