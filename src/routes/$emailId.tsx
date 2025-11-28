@@ -87,7 +87,7 @@ function EmailerPage() {
             </TypographyBody>
           </div>
           <div className="flex flex-col gap-1.5">
-            <Button variant="secondary" className="w-full" onClick={() => {
+            <Button type="submit" variant="secondary" className="w-full" onClick={() => {
               navigator.clipboard.writeText(username ? replacePlaceholders(email.emailBody, { username: username }) : email.emailBody);
               toast.success("Email copied to clipboard")
             }}>Copy template</Button>
