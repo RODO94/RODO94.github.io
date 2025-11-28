@@ -70,7 +70,7 @@ function AdminPage() {
         <TypographyHeader variant="header-1" >Admin Panel</TypographyHeader>
       </div>
       <div className="flex justify-end items-center my-8">
-        <Button variant={"primary"} className="align-self-end" onClick={() => setShowAddForm(!showAddForm)}>
+        <Button variant={"outline"} className="align-self-end" onClick={() => setShowAddForm(!showAddForm)}>
           {showAddForm ? "Cancel" : "+ Submit New Template"}
         </Button>
       </div>
