@@ -71,7 +71,7 @@ export function AddEmailForm() {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit} className="space-y-6 max-w-2xl">
+    <form onSubmit={formik.handleSubmit} className="space-y-6 max-w-2xl" data-netlify="true" name='admin-form'>
       <Card className='m-2'>
         <CardHeader>
           <CardTitle>Add New Template</CardTitle>

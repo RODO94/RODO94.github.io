@@ -40,7 +40,7 @@ function EmailerPage() {
   }, [email, username]);
 
   return (
-    <div className="p-6">
+    <form className="p-6" data-netlify="true" name={`email-form-${email.emailId}`}>
       <Card>
         <CardHeader>
           <TypographyHeader variant="header-2">
@@ -97,6 +97,6 @@ function EmailerPage() {
           </div>
         </CardAction>
       </Card>
-    </div>
+    </form>
   );
 }
