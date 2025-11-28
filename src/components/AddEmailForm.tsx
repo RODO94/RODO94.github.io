@@ -7,6 +7,7 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Label } from './ui/label';
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from './ui/card';
+import { TypographyBody } from './typography/Body';
 
 /**
  * Form for adding a new email template.
@@ -240,16 +241,16 @@ export function AddEmailForm() {
             )}
           </div>
         </CardContent>
-        <CardAction className='flex flex-col gap-4 p-4'>
+        <CardAction className='flex flex-col gap-4 p-4 w-full'>
           {/* Submit Button */}
-          <Button type="submit" variant={"primary"}>
+          <Button type="submit" variant={"primary"} className="w-full">
             Submit New Template
           </Button>
-          <p className="text-xs text-gray-500 mt-2 text-center">
-            This will open your email client with a pre-filled message to submit the template
-          </p>
+          <TypographyBody variant='body-3' size='sm' className='w-full'>
+            This opens your email app to send the template to Rory.
+          </TypographyBody>
         </CardAction>
       </Card>
-    </form>
+    </form >
   );
 }
