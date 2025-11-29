@@ -5,7 +5,7 @@ type MainBoxProps = {
 };
 
 export const MainBox: React.FC<MainBoxProps> = ({ children }) => (
-  <div className='flex flex-col items-center justify-start min-h-screen w-full gap-4 max-w-[600px]'>
+  <div className='flex flex-col items-center justify-start min-h-screen gap-4 w-[90%] sm:max-w-[600px]'>
     {children}
   </div>
 );
