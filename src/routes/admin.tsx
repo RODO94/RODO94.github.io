@@ -36,6 +36,15 @@ function AdminPage() {
     }
   }, [])
 
+  const handleValidatePassword = () => {
+    if (password.trim() === import.meta.env.VITE_LANDLORDS) {
+      window.sessionStorage.setItem('isAuthenticated', 'true')
+      setIsAuthenticated(true)
+    } else {
+      toast.warning('Wrong password, ask an MS member for help')
+    }
+  }
+
   if (!isAuthenticated) {
     return (<Card>
       <CardContent className="flex flex-col gap-4 space-y-4" >
@@ -44,14 +53,13 @@ function AdminPage() {
           <TypographyBody variant="body-1" size="base">We have added a password for the admin page. Ask an MS member for help if you don't know it.</TypographyBody>
         </div>
         <Input type="text" value={password} onChange={(e) => {
-          window.sessionStorage.setItem('isAuthenticated', 'true')
           setPassword(e.target.value)
         }} />
         <CardAction>
-          <Button variant={"primary"} onClick={() => { if (password === import.meta.env.VITE_LANDLORDS) setIsAuthenticated(true) }}>Submit</Button>
+          <Button variant={"primary"} onClick={handleValidatePassword}>Submit</Button>
         </CardAction>
       </CardContent>
-    </Card>)
+    </Card >)
   }
 
   if (emails === null) {

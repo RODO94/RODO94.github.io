@@ -21,7 +21,7 @@ declare module "@tanstack/react-router" {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <MaxWidthBox>
-      <Toaster position="top-center" />
+      <Toaster position="top-center" richColors />
       <RouterProvider router={router} />
     </MaxWidthBox>
   </StrictMode>
