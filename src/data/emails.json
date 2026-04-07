@@ -28,5 +28,15 @@
     "title": "Help us reach Peter Bedford Housing Association",
     "description": "Our member Monika is about to be evicted and made homeless by Peter Bedford Housing Association.  Send this email today to stop the eviction from happening.",
     "createdOn": "2025-11-27T21:39:00.555Z"
+  },
+  {
+    "emailId": "rory-test-email",
+    "subject": "This is to show the tool working",
+    "targetTo": "rory.doak@gmail.com",
+    "emailBody": "Stop being so cute",
+    "createdBy": "Rory Doak",
+    "title": "Rory Testing ",
+    "description": "This is a test email to show the tool working",
+    "createdOn": "2026-04-07T12:53:43.679Z"
   }
 ]
