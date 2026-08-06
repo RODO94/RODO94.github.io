@@ -110,6 +110,19 @@ export function parseCcInput(raw: string): string[] {
 }
 
 /**
+ * Percent-encode text for a mailto URL, normalising line breaks to CRLF first.
+ *
+ * RFC 6068 specifies %0D%0A for a line break. Bare %0A is accepted by some mail
+ * apps and silently dropped by others - iOS Gmail collapses a whole template
+ * into one unbroken paragraph, while Android Gmail renders it correctly. Tested
+ * on the affected device: CRLF works with both a short and a long body, bare LF
+ * works with neither.
+ */
+function encodeMailtoText(text: string): string {
+    return encodeURIComponent(text.replace(/\r?\n/g, '\r\n'))
+}
+
+/**
  * Generate a mailto link for submitting a new email template to rory.doak@gmail.com.
  * The email body contains formatted JSON ready for copy/paste into emails.json.
  * @param email - The email template to submit
@@ -127,8 +140,8 @@ ${formatEmailForSubmission(email)}
 `
 
     // Properly encode subject and body for URL
-    const encodedSubject = encodeURIComponent(subject)
-    const encodedBody = encodeURIComponent(body)
+    const encodedSubject = encodeMailtoText(subject)
+    const encodedBody = encodeMailtoText(body)
 
     return `mailto:${to}?subject=${encodedSubject}&body=${encodedBody}`
 }
@@ -160,8 +173,8 @@ export function generateSendMailto(
     }
 
     // Properly encode subject and body for URL
-    params.push(`subject=${encodeURIComponent(subject)}`)
-    params.push(`body=${encodeURIComponent(body)}`)
+    params.push(`subject=${encodeMailtoText(subject)}`)
+    params.push(`body=${encodeMailtoText(body)}`)
 
     return `mailto:${to}?${params.join('&')}`
 }
