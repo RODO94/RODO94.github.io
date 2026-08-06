@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as MailtoTestRouteImport } from './routes/mailto-test'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as EmailIdRouteImport } from './routes/$emailId'
 import { Route as IndexRouteImport } from './routes/index'
 
+const MailtoTestRoute = MailtoTestRouteImport.update({
+  id: '/mailto-test',
+  path: '/mailto-test',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -33,34 +39,45 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$emailId': typeof EmailIdRoute
   '/admin': typeof AdminRoute
+  '/mailto-test': typeof MailtoTestRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$emailId': typeof EmailIdRoute
   '/admin': typeof AdminRoute
+  '/mailto-test': typeof MailtoTestRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$emailId': typeof EmailIdRoute
   '/admin': typeof AdminRoute
+  '/mailto-test': typeof MailtoTestRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$emailId' | '/admin'
+  fullPaths: '/' | '/$emailId' | '/admin' | '/mailto-test'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$emailId' | '/admin'
-  id: '__root__' | '/' | '/$emailId' | '/admin'
+  to: '/' | '/$emailId' | '/admin' | '/mailto-test'
+  id: '__root__' | '/' | '/$emailId' | '/admin' | '/mailto-test'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EmailIdRoute: typeof EmailIdRoute
   AdminRoute: typeof AdminRoute
+  MailtoTestRoute: typeof MailtoTestRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/mailto-test': {
+      id: '/mailto-test'
+      path: '/mailto-test'
+      fullPath: '/mailto-test'
+      preLoaderRoute: typeof MailtoTestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EmailIdRoute: EmailIdRoute,
   AdminRoute: AdminRoute,
+  MailtoTestRoute: MailtoTestRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
