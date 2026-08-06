@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import { z } from 'zod';
 import { EmailSchema, type Email } from '../schemas/email/email.schema';
-import { generateSubmitMailto } from '../services/emailService';
+import { generateSubmitMailto, parseCcInput } from '../services/emailService';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
@@ -14,6 +14,36 @@ import { TypographyBody } from './typography/Body';
  * Uses Formik for form management and Zod for validation.
  * On submit, opens email client with JSON formatted for copy/paste.
  */
+/**
+ * The form's own shape. Differs from Email in two places: targetCc is a
+ * comma-separated string here, and createdOn is generated on submit.
+ */
+type EmailFormValues = Omit<Email, 'targetCc' | 'createdOn'> & {
+  targetCc: string;
+};
+
+/**
+ * Convert the flat form values into the shape EmailSchema expects.
+ * targetCc is omitted entirely when blank, so the generated JSON carries no
+ * empty array for templates that copy nobody in.
+ */
+function buildEmailData(values: EmailFormValues): Email {
+  const ccAddresses = parseCcInput(values.targetCc);
+
+  return {
+    emailId: values.emailId,
+    subject: values.subject,
+    targetTo: values.targetTo,
+    ...(ccAddresses.length > 0 && { targetCc: ccAddresses }),
+    emailBody: values.emailBody,
+    createdBy: values.createdBy,
+    title: values.title,
+    description: values.description,
+    // Auto-generate createdOn timestamp
+    createdOn: new Date().toISOString()
+  };
+}
+
 export function AddEmailForm() {
 
   const formik = useFormik({
@@ -21,17 +51,14 @@ export function AddEmailForm() {
       emailId: '',
       subject: '',
       targetTo: '',
+      targetCc: '',
       emailBody: '',
       createdBy: '',
       title: '',
       description: ''
     },
     validate: (values) => {
-      // Auto-generate createdOn timestamp
-      const emailData = {
-        ...values,
-        createdOn: new Date().toISOString()
-      };
+      const emailData = buildEmailData(values);
 
       try {
         EmailSchema.parse(emailData);
@@ -52,11 +79,7 @@ export function AddEmailForm() {
     },
     onSubmit: (values, { resetForm }) => {
 
-      // Auto-generate createdOn timestamp
-      const emailData = {
-        ...values,
-        createdOn: new Date().toISOString()
-      } as Email;
+      const emailData = buildEmailData(values);
 
       // Generate mailto link
       const mailtoLink = generateSubmitMailto(emailData);
@@ -146,6 +169,31 @@ export function AddEmailForm() {
             {formik.touched.targetTo && formik.errors.targetTo && (
               <p className="text-xs text-red-600 dark:text-red-400 mt-1">
                 {formik.errors.targetTo}
+              </p>
+            )}
+          </div>
+
+          {/* CC Emails */}
+          <div>
+            <Label htmlFor="targetCc">
+              Cc Email Addresses
+            </Label>
+            <Input
+              id="targetCc"
+              name="targetCc"
+              type="text"
+              value={formik.values.targetCc}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder="press@example.com, casework@example.com"
+              className="mt-1"
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Optional. Separate multiple addresses with commas.
+            </p>
+            {formik.touched.targetCc && formik.errors.targetCc && (
+              <p className="text-xs text-red-600 dark:text-red-400 mt-1">
+                {formik.errors.targetCc}
               </p>
             )}
           </div>

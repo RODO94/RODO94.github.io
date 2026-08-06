@@ -19,6 +19,9 @@ export const EmailSchema = z.object({
   targetTo: z
     .string()
     .email('Must be a valid email address'),
+  targetCc: z
+    .array(z.string().email('Each CC address must be a valid email address'))
+    .optional(),
   emailBody: z
     .string()
     .min(1, 'Email body is required'),

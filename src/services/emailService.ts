@@ -86,6 +86,30 @@ export function formatEmailForSubmission(email: Email): string {
 }
 
 /**
+ * Format a list of CC addresses for display and for pasting into an email
+ * client's CC field. Note that mailto URLs use a different separator - see
+ * generateSendMailto.
+ * @example
+ * formatCcList(['a@example.com', 'b@example.com']) // "a@example.com, b@example.com"
+ */
+export function formatCcList(addresses: string[]): string {
+    return addresses.join(', ')
+}
+
+/**
+ * Parse a comma-separated string of CC addresses into a trimmed array.
+ * Empty entries are discarded, so trailing commas and stray spaces are safe.
+ * @example
+ * parseCcInput('a@example.com, b@example.com, ') // ["a@example.com", "b@example.com"]
+ */
+export function parseCcInput(raw: string): string[] {
+    return raw
+        .split(',')
+        .map((address) => address.trim())
+        .filter((address) => address.length > 0)
+}
+
+/**
  * Generate a mailto link for submitting a new email template to rory.doak@gmail.com.
  * The email body contains formatted JSON ready for copy/paste into emails.json.
  * @param email - The email template to submit
@@ -122,30 +146,49 @@ ${formatEmailForSubmission(email)}
  */
 export function generateSendMailto(
     email: Email,
-    placeholderValues?: Record<string, string>
+    placeholderValues: Record<string, string> = {}
 ): string {
     const to = email.targetTo
-    const subject = email.subject
-    let body = email.emailBody
+    const subject = replacePlaceholders(email.subject, placeholderValues)
+    const body = replacePlaceholders(email.emailBody, placeholderValues)
 
-    // Replace placeholders if values are provided
-    if (placeholderValues) {
-        body = replacePlaceholders(body, placeholderValues)
-        // Also support placeholders in subject
-        const subjectWithPlaceholders = replacePlaceholders(
-            subject,
-            placeholderValues
-        )
-        const encodedSubject = encodeURIComponent(subjectWithPlaceholders)
-        const encodedBody = encodeURIComponent(body)
-        return `mailto:${to}?subject=${encodedSubject}&body=${encodedBody}`
+    const params: string[] = []
+
+    // CC addresses are comma-separated with no space, per RFC 6068
+    if (email.targetCc?.length) {
+        params.push(`cc=${email.targetCc.join(',')}`)
     }
 
     // Properly encode subject and body for URL
-    const encodedSubject = encodeURIComponent(subject)
-    const encodedBody = encodeURIComponent(body)
+    params.push(`subject=${encodeURIComponent(subject)}`)
+    params.push(`body=${encodeURIComponent(body)}`)
 
-    return `mailto:${to}?subject=${encodedSubject}&body=${encodedBody}`
+    return `mailto:${to}?${params.join('&')}`
+}
+
+/**
+ * Format an email template as plain text for the clipboard.
+ * Includes a recipient header so the CC list survives the copy path, which the
+ * body alone would drop.
+ * @param email - The email template to format
+ * @param placeholderValues - Values to substitute into the subject and body
+ */
+export function formatEmailForClipboard(
+    email: Email,
+    placeholderValues: Record<string, string> = {}
+): string {
+    const subject = replacePlaceholders(email.subject, placeholderValues)
+    const body = replacePlaceholders(email.emailBody, placeholderValues)
+
+    const headers = [`To: ${email.targetTo}`]
+
+    if (email.targetCc?.length) {
+        headers.push(`Cc: ${formatCcList(email.targetCc)}`)
+    }
+
+    headers.push(`Subject: ${subject}`)
+
+    return `${headers.join('\n')}\n\n${body}`
 }
 
 /**

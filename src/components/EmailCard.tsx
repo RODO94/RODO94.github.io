@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router';
 import { Card } from './ui/card';
 import type { Email } from '../schemas/email/email.schema';
+import { formatCcList } from '../services/emailService';
 
 interface EmailCardProps {
   email: Email;
@@ -19,6 +20,8 @@ export function EmailCard({ email }: EmailCardProps) {
     hour: '2-digit',
     minute: '2-digit'
   });
+
+  const ccAddresses = email.targetCc ?? [];
 
   // Truncate body if too long
   const bodyPreview = email.emailBody.length > 150
@@ -47,6 +50,18 @@ export function EmailCard({ email }: EmailCardProps) {
             {email.targetTo}
           </span>
         </div>
+
+        {/* Copied recipients */}
+        {ccAddresses.length > 0 && (
+          <div>
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              Cc:
+            </span>
+            <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">
+              {formatCcList(ccAddresses)}
+            </span>
+          </div>
+        )}
 
         {/* Body preview */}
         <div className="text-sm text-gray-700 dark:text-gray-300 border-l-2 border-gray-300 dark:border-gray-600 pl-3">
